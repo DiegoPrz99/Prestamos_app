@@ -28,14 +28,14 @@ export const solicitarPrestamo = async (prestamo, email, password) => {
 };
 
 export const aprobarPrestamo = async (id, email, password) => {
-  const response = await axios.put(`${BASE_URL}/${id}/aprobar`, {}, {
+  const response = await axios.put(`${BASE_URL}/aprobar/${id}`, {}, {
     headers: getAuthHeader(email, password)
   });
   return response.data;
 };
 
 export const rechazarPrestamo = async (id, email, password) => {
-  const response = await axios.put(`${BASE_URL}/${id}/rechazar`, {}, {
+  const response = await axios.put(`${BASE_URL}/rechazar/${id}`, {}, {
     headers: getAuthHeader(email, password)
   });
   return response.data;

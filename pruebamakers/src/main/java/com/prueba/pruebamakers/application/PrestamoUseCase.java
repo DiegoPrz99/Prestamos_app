@@ -3,6 +3,7 @@ package com.prueba.pruebamakers.application;
 import com.prueba.pruebamakers.domain.model.Prestamo;
 import com.prueba.pruebamakers.domain.service.PrestamoService;
 import org.springframework.stereotype.Component;
+import org.springframework.cache.CacheManager;
 
 import java.util.List;
 
@@ -10,9 +11,11 @@ import java.util.List;
 public class PrestamoUseCase {
 
     private final PrestamoService prestamoService;
+    private final CacheManager cacheManager;
 
-    public PrestamoUseCase(PrestamoService prestamoService) {
+    public PrestamoUseCase(PrestamoService prestamoService, CacheManager cacheManager) {
         this.prestamoService = prestamoService;
+        this.cacheManager = cacheManager;
     }
 
     public Prestamo solicitarPrestamo(Prestamo prestamo) {
@@ -27,11 +30,18 @@ public class PrestamoUseCase {
         return prestamoService.rechazarPrestamo(id);
     }
 
-    public List<Prestamo> obtenerPrestamosUsuario(String usuarioId) {
-        return prestamoService.obtenerPrestamosUsuario(usuarioId);
+    public List<Prestamo> obtenerPrestamosUsuario(String email) {
+        return prestamoService.obtenerPrestamosUsuario(email);
     }
 
     public List<Prestamo> obtenerTodosPrestamos() {
         return prestamoService.obtenerTodosPrestamos();
     }
+
+    public void evictCache(String email) { 
+        if (cacheManager.getCache("prestamosUsuario") != null) { 
+            cacheManager.getCache("prestamosUsuario").evict(email); 
+        } 
+    }
+    
 }

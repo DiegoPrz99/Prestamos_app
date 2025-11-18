@@ -35,8 +35,8 @@ public class PrestamoService {
         return repository.save(prestamo);
     }
 
-    public List<Prestamo> obtenerPrestamosUsuario(String usuarioEmail) {
-        return repository.findByUsuarioEmail(usuarioEmail);
+    public List<Prestamo> obtenerPrestamosUsuario(String email) {
+        return repository.findByEmail(email);
     }
 
     public List<Prestamo> obtenerTodosPrestamos() {

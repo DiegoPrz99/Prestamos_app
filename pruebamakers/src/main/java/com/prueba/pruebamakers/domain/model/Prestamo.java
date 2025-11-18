@@ -26,5 +26,5 @@ public class Prestamo {
     @Enumerated(EnumType.STRING)
     private EstadoPrestamo estado;
 
-    private String usuarioEmail;
+    private String email;
 }
